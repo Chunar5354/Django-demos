@@ -1,6 +1,6 @@
 ## 说明
 
-使用Django框架搭建一个自己的网页版TO do list备忘录，原型是cleverprogrammer的一个教学程序，
+使用Django框架搭建一个自己的网页版To do list备忘录，原型是cleverprogrammer的一个教学程序，
 可以查看原[Youtube视频](https://www.youtube.com/watch?v=JT80XhYJdBw&t=27934s)
 
 ## 运行
