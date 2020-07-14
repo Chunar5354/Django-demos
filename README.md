@@ -1,5 +1,7 @@
 # Django-demos
 
+![](https://img.shields.io/badge/language-Python-blue.svg) ![](https://img.shields.io/badge/Django-v2.2.5-green.svg)
+
 使用Python的Django框架搭建一些简单的Web应用，主要用于学习Django框架
 
 ## Django使用记录
