@@ -11,3 +11,4 @@
 ## 一些实战项目
 
 - [结合爬虫搜索书籍和视频](https://github.com/Chunar5354/Django-demos/tree/master/SearchDemo)
+- [To Do List 网页备忘录](https://github.com/Chunar5354/Django-demos/tree/master/TodoDemo)
