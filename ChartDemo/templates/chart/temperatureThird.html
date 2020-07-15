@@ -1,0 +1,52 @@
+{% extends 'chart/index.html' %}
+
+{% block chart %}
+                
+    <div id="bar" style="width:1000px; height:500px;"></div>
+    <script>
+        var chart = echarts.init(document.getElementById('bar'), 'white', {renderer: 'canvas'});
+        var old_data = [];
+        $(
+            function () {
+                fetchData(chart);
+                setInterval(fetchData, 2000);
+            }
+        );
+
+        $(document).ready(function(){
+            $(".dropdown-trigger").dropdown();
+        });
+
+        function fetchData() {
+            $.ajax({
+                type: "GET",
+                url: "../temperatureThirdChart",
+                dataType: "json",
+                success: function (result) {
+                    var options = result.data;
+                    chart.setOption(options);
+                    old_data = chart.getOption().series[0].data;
+                }
+            });
+        }
+
+        function getDynamicData() {
+            $.ajax({
+                type: "GET",
+                url: "../lineUpdate",
+                dataType: 'json',
+                success: function (result) {
+                    var options = result.data;
+                    old_data.push([options.name, options.value]);
+                    chart.setOption({
+                        series: [{
+                            data: old_data
+                        }]
+                    });
+                }
+            });
+        }
+
+    </script>
+
+{% endblock chart %}
