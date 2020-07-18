@@ -13,3 +13,7 @@ python manage.py runserver 0:9090
 ```
 
 然后登录`localhost:9090`就可以访问页面
+
+## 测试数据
+
+因为要从MySQL数据库中取出数据来显示，可以通过`into_db_test.py`向数据库中添加测试数据
