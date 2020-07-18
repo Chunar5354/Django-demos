@@ -45,10 +45,14 @@ JsonResponse = json_response
 JsonError = json_error
 
 
-def get_data():
-	value = models.Voltage.objects.filter(added_date='2020-07-17 20:46:33.000000')
-	print(value[0].value)
-	print(type(value[0].value))
+def get_data(Module, added_date):
+	'''
+	:Module: class name in models.py, represents the table in database
+	:added_date: a time string
+	'''
+	values = Module.objects.filter(added_date=added_date)
+	data_list = [i.value for i in values]
+	return data_list
 
 def current() -> Line:
 	line = (
@@ -73,12 +77,12 @@ def current() -> Line:
 	return line
 
 def voltage() -> Line:
-	get_data()
+	data = get_data(models.Voltage, '2020-07-17 20:46:33')
 	line = (
 		Line()
 		.add_xaxis(list(range(10)))
-		.add_yaxis(series_name="", 
-				   y_axis=[randrange(0, 100) for _ in range(10)],
+		.add_yaxis(series_name=, 
+				   y_axis=data,
 				   is_smooth=True,)
 		.set_global_opts(
 			title_opts=opts.TitleOpts(title="电压"),
