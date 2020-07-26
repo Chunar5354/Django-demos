@@ -11,7 +11,25 @@ from django.shortcuts import render
 
 from . import models
 
-# Create your views here.
+class Chart():
+	def __init__(self, Module):
+		self.Module = Module
+		self.index = 1000  # Set a big init value so it will run get_value_from_db() at beginning
+		self.data_list = []
+
+	def get_value_from_db(self):
+		last_time = self.Module.objects.last().added_date
+		values = self.Module.objects.filter(added_date=last_time)
+		self.data_list = [i.value for i in values]
+
+	def get_data(self, length):
+		if self.index >= length:
+			self.get_value_from_db()
+			self.index = 0
+		else:
+			self.index += length // 5
+		return self.data_list[self.index : self.index + length//5]
+		
 def response_as_json(data):
 	json_str = json.dumps(data)
 	response = HttpResponse(
@@ -45,15 +63,6 @@ JsonResponse = json_response
 JsonError = json_error
 
 
-def get_data(Module, added_date):
-	'''
-	:Module: class name in models.py, represents the table in database
-	:added_date: a time string
-	'''
-	values = Module.objects.filter(added_date=added_date)
-	data_list = [i.value for i in values]
-	return data_list
-
 def current() -> Line:
 	line = (
 		Line()
@@ -76,12 +85,13 @@ def current() -> Line:
 	)
 	return line
 
+voltage_module = Chart(models.Voltage)
 def voltage() -> Line:
-	data = get_data(models.Voltage, '2020-07-17 20:46:33')
+	data = voltage_module.get_data(100)
 	line = (
 		Line()
-		.add_xaxis(list(range(10)))
-		.add_yaxis(series_name=, 
+		.add_xaxis(list(range(20)))
+		.add_yaxis(series_name='', 
 				   y_axis=data,
 				   is_smooth=True,)
 		.set_global_opts(

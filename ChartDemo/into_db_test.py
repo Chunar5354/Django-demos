@@ -28,7 +28,7 @@ class Motor():
 		insert_datalist = []
 		t = time.time()
 		added_date = self.timestamp_datatime(t)
-		for _ in range(10):
+		for _ in range(100):
 			value = round(random.uniform(1, 10), 2)
 			data_tuple = (added_date, Decimal.from_float(value).quantize(Decimal('0.00')))
 			insert_datalist.append(data_tuple)
