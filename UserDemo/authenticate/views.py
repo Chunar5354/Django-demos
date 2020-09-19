@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.mail import send_mail
 
 from .form_s import UserLoginForm, UserRegisterForm
 
@@ -18,6 +17,7 @@ def user_login(request):
 			data = user_login_form.cleaned_data
 
 			user = authenticate(username=data['username'], password=data['password'])
+			print(type(user), user)
 
 			if user:
 				login(request, user)
@@ -62,13 +62,4 @@ def user_register(request):
 		return HttpResponse('please use GET or POST method')
 
 
-def mail_send(request):
-	send_mail(
-		'Chunar sends you a message.',
-		'hellow man',
-		'1186330927@qq.com',
-		['1484958755@qq.com'],
-		fail_silently = False,
-	)
-	return HttpResponse('Successfully sended')
 # Create your views here.
