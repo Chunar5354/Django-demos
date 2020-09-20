@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<script>
+		{% if messages %}
+			{% for msg in messages %}
+				alert('{{ msg.message }}');
+			{% endfor %}
+		{% endif %}
+	</script>
+
+	<h5><a href="{% url 'mail_send' %}">send me an email</a></h5>
+	
+{% endblock content %}
+
